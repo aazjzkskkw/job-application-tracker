@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="记录和管理求职投递进度">
+  <title>求职投递追踪器</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="hero">
+    <div><p class="eyebrow">JOB APPLICATION TRACKER</p><h1>求职投递追踪器</h1><p>把每一次投递和下一步安排在一个地方。</p></div>
+    <button id="add-button" class="primary" type="button">＋ 新增投递</button>
+  </header>
+  <main>
+    <section class="stats" aria-label="投递统计">
+      <article><span>总投递</span><strong id="total-stat">0</strong></article><article><span>进行中</span><strong id="active-stat">0</strong></article>
+      <article><span>面试</span><strong id="interview-stat">0</strong></article><article><span>Offer</span><strong id="offer-stat">0</strong></article>
+    </section>
+    <section class="toolbar" aria-label="筛选与备份">
+      <label class="search"><span class="sr-only">搜索</span><input id="search" type="search" placeholder="搜索公司、职位或联系人…"></label>
+      <label><span class="sr-only">状态筛选</span><select id="status-filter"><option value="">全部状态</option></select></label>
+      <label><span class="sr-only">排序方式</span><select id="sort"><option value="updated-desc">最近更新</option><option value="applied-desc">投递日期（新到旧）</option><option value="applied-asc">投递日期（旧到新）</option><option value="company-asc">公司名称</option></select></label>
+      <button id="export-button" type="button">导出备份</button><button id="import-button" type="button">导入备份</button><input id="import-file" type="file" accept="application/json,.json" hidden>
+    </section>
+    <p id="result-count" class="result-count" aria-live="polite"></p><section id="applications" class="applications" aria-label="投递记录"></section>
+    <section id="empty-state" class="empty" hidden><div aria-hidden="true">◎</div><h2>还没有投递记录</h2><p>添加第一家公司，开始跟进求职进度。</p><button class="primary add-trigger" type="button">新增投递</button></section>
+  </main>
+  <dialog id="application-dialog">
+    <form id="application-form">
+      <div class="dialog-head"><div><p class="eyebrow">APPLICATION</p><h2 id="dialog-title">新增投递</h2></div><button class="icon-button" id="close-dialog" type="button" aria-label="关闭">×</button></div>
+      <input id="record-id" type="hidden">
+      <div class="form-grid">
+        <label>公司名称<input id="company" maxlength="80" required></label><label>职位名称<input id="role" maxlength="80" required></label>
+        <label>当前状态<select id="status" required></select></label><label>投递日期<input id="applied-at" type="date" required></label>
+        <label>下一步日期<input id="next-action-at" type="date"></label><label>联系人<input id="contact" maxlength="80" placeholder="姓名 / 邮箱"></label>
+        <label class="wide">招聘链接<input id="link" type="url" maxlength="500" placeholder="https://…"></label>
+        <label class="wide">备注<textarea id="notes" rows="4" maxlength="1000" placeholder="面试安排、薪资范围、待办事项…"></textarea></label>
+      </div>
+      <p id="form-error" class="error" role="alert"></p><div class="dialog-actions"><button id="cancel-dialog" type="button">取消</button><button class="primary" type="submit">保存记录</button></div>
+    </form>
+  </dialog>
+  <template id="card-template"><article class="card"><div class="card-top"><span class="status-badge"></span><div class="card-actions"><button class="edit-button" type="button">编辑</button><button class="delete-button danger" type="button">删除</button></div></div><h2 class="company"></h2><p class="role"></p><dl><div><dt>投递日期</dt><dd class="applied-date"></dd></div><div><dt>下一步</dt><dd class="next-date"></dd></div><div><dt>联系人</dt><dd class="contact"></dd></div></dl><p class="notes"></p><a class="job-link" target="_blank" rel="noopener noreferrer">查看职位 ↗</a></article></template>
+  <script src="app.js"></script>
+</body>
+</html>

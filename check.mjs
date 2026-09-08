@@ -1,0 +1,11 @@
+import { readFileSync } from "node:fs";
+import { Script } from "node:vm";
+const html=readFileSync(new URL("index.html",import.meta.url),"utf8");
+const css=readFileSync(new URL("style.css",import.meta.url),"utf8");
+const js=readFileSync(new URL("app.js",import.meta.url),"utf8");
+new Script(js);
+for(const id of ["applications","application-form","status-filter","import-file"]) if(!html.includes(`id="${id}"`)) throw new Error(`Missing #${id}`);
+if(!html.includes("<meta name=\"viewport\"")||!css.includes("@media")) throw new Error("Responsive layout markers are missing");
+if(js.includes("innerHTML")) throw new Error("Unsafe innerHTML rendering is not allowed");
+if(!js.includes("localStorage")||!js.includes("JSON.stringify")) throw new Error("Persistence or backup logic is missing");
+console.log("Static checks passed");
