@@ -31,16 +31,18 @@
       <div class="dialog-head"><div><p class="eyebrow">APPLICATION</p><h2 id="dialog-title">新增投递</h2></div><button class="icon-button" id="close-dialog" type="button" aria-label="关闭">×</button></div>
       <input id="record-id" type="hidden">
       <div class="form-grid">
-        <label>公司名称<input id="company" maxlength="80" required></label><label>职位名称<input id="role" maxlength="80" required></label>
-        <label>当前状态<select id="status" required></select></label><label>投递日期<input id="applied-at" type="date" required></label>
-        <label>下一步日期<input id="next-action-at" type="date"></label><label>联系人<input id="contact" maxlength="80" placeholder="姓名 / 邮箱"></label>
-        <label class="wide">招聘链接<input id="link" type="url" maxlength="500" placeholder="https://…"></label>
+        <label class="wide">公司网址<input id="company-url" type="url" maxlength="500" placeholder="https://company.com" required><span class="hint">输入后自动推断公司名称，仍可手动修改。</span></label>
+        <label>公司名称<input id="company" maxlength="80" required></label><label>岗位名称<input id="role" maxlength="80" required></label>
+        <fieldset class="status-field wide"><legend>投递情况</legend><div id="status-options" class="status-options"></div></fieldset>
+        <label>投递日期<input id="applied-at" type="date" required></label><label>下一步日期<input id="next-action-at" type="date"></label>
+        <label class="wide">岗位链接<input id="link" type="url" maxlength="500" placeholder="https://company.com/jobs/…"></label>
+        <label>联系人<input id="contact" maxlength="80" placeholder="姓名 / 邮箱"></label>
         <label class="wide">备注<textarea id="notes" rows="4" maxlength="1000" placeholder="面试安排、薪资范围、待办事项…"></textarea></label>
       </div>
       <p id="form-error" class="error" role="alert"></p><div class="dialog-actions"><button id="cancel-dialog" type="button">取消</button><button class="primary" type="submit">保存记录</button></div>
     </form>
   </dialog>
-  <template id="card-template"><article class="card"><div class="card-top"><span class="status-badge"></span><div class="card-actions"><button class="edit-button" type="button">编辑</button><button class="delete-button danger" type="button">删除</button></div></div><h2 class="company"></h2><p class="role"></p><dl><div><dt>投递日期</dt><dd class="applied-date"></dd></div><div><dt>下一步</dt><dd class="next-date"></dd></div><div><dt>联系人</dt><dd class="contact"></dd></div></dl><p class="notes"></p><a class="job-link" target="_blank" rel="noopener noreferrer">查看职位 ↗</a></article></template>
+  <template id="card-template"><article class="card"><div class="card-top"><span class="status-badge"></span><div class="card-actions"><button class="edit-button" type="button">编辑</button><button class="delete-button danger" type="button">删除</button></div></div><h2 class="company"></h2><p class="role"></p><dl><div><dt>投递日期</dt><dd class="applied-date"></dd></div><div><dt>下一步</dt><dd class="next-date"></dd></div><div><dt>联系人</dt><dd class="contact"></dd></div></dl><p class="notes"></p><div class="card-links"><a class="company-link" target="_blank" rel="noopener noreferrer">公司官网 ↗</a><a class="job-link" target="_blank" rel="noopener noreferrer">岗位链接 ↗</a></div></article></template>
   <script src="app.js"></script>
 </body>
 </html>
